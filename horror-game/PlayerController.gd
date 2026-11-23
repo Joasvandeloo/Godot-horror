@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-
+@onready var area2D: Area2D = $Area2D
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -39,3 +39,5 @@ func _physics_process(delta: float) -> void:
 		anim.play("Run")
 	elif is_on_floor():
 		anim.play("Idle")
+		
+	

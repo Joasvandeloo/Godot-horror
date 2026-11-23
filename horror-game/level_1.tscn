@@ -1015,7 +1015,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cqwe"]
-size = Vector2(16, 26.25)
+size = Vector2(19, 21.5625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwi2s"]
+size = Vector2(14, 22)
 
 [node name="Level1" type="Node2D" unique_id=783443556]
 
@@ -1026,6 +1029,7 @@ tile_set = SubResource("TileSet_rn2y4")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=18172660]
 position = Vector2(-3, -18)
+collision_layer = 3
 script = ExtResource("2_hn12h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1737657283]
@@ -1033,10 +1037,16 @@ sprite_frames = SubResource("SpriteFrames_7cqwe")
 animation = &"StopRun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1914748549]
-position = Vector2(2, 3)
+position = Vector2(-3, 5.21875)
 shape = SubResource("RectangleShape2D_7cqwe")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=985500158]
 position = Vector2(3, 18)
 scale = Vector2(3.95126, -0.50961125)
 zoom = Vector2(3, 3)
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=828333960]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=824846160]
+position = Vector2(-1, 5)
+shape = SubResource("RectangleShape2D_fwi2s")
