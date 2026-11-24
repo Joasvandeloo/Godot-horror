@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c2riv04g2ks72" path="res://textures/textures.png" id="1_3hls8"]
 [ext_resource type="Texture2D" uid="uid://b5d18orfjaseb" path="res://textures/Character.png" id="2_hbghi"]
 [ext_resource type="Script" uid="uid://c5t0f5mni4yid" path="res://PlayerController.gd" id="2_hn12h"]
+[ext_resource type="FontFile" uid="uid://cwgmc12w36a8a" path="res://textures/pixelHorror.ttf" id="4_ihfcg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hbghi"]
 
@@ -1026,6 +1027,10 @@ tonemap_exposure = 0.46
 volumetric_fog_density = 0.6495
 volumetric_fog_emission_energy = 0.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_7cqwe"]
+font = ExtResource("4_ihfcg")
+font_color = Color(1, 0, 0, 1)
+
 [node name="Level1" type="Node2D" unique_id=783443556]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=135691801]
@@ -1059,3 +1064,11 @@ shape = SubResource("RectangleShape2D_fwi2s")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=400557634]
 environment = SubResource("Environment_7cqwe")
+
+[node name="Label" type="Label" parent="." unique_id=1251533787]
+offset_left = -151.0
+offset_top = -100.0
+offset_right = 131.0
+offset_bottom = -77.0
+text = "did  you  want  death"
+label_settings = SubResource("LabelSettings_7cqwe")
