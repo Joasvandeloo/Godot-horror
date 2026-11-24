@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+#defines all the variables
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -27,7 +27,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	if Input.is_action_just_pressed("JUMP") and direction == 0:
+	#handles animations
+	if Input.is_action_just_pressed("JUMP") and direction == 0 and is_on_floor():
 		anim.play("IdleStartJump")
 	elif Input.is_action_just_pressed("RIGHT") or Input.is_action_just_pressed("LEFT") and is_on_floor():
 		anim.play("StartRun")
@@ -39,5 +40,8 @@ func _physics_process(delta: float) -> void:
 		anim.play("Run")
 	elif is_on_floor():
 		anim.play("Idle")
-		
 	
+
+#detects collisions
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("Death")
