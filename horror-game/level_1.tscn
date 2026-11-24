@@ -1020,6 +1020,12 @@ size = Vector2(19, 21.5625)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwi2s"]
 size = Vector2(14, 22)
 
+[sub_resource type="Environment" id="Environment_7cqwe"]
+background_mode = 3
+tonemap_exposure = 0.46
+volumetric_fog_density = 0.6495
+volumetric_fog_emission_energy = 0.0
+
 [node name="Level1" type="Node2D" unique_id=783443556]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=135691801]
@@ -1050,3 +1056,6 @@ zoom = Vector2(3, 3)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D" unique_id=824846160]
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_fwi2s")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=400557634]
+environment = SubResource("Environment_7cqwe")
