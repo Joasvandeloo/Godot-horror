@@ -2,8 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c2riv04g2ks72" path="res://textures/textures.png" id="1_3hls8"]
 [ext_resource type="Texture2D" uid="uid://b5d18orfjaseb" path="res://textures/Character.png" id="2_hbghi"]
-[ext_resource type="Script" uid="uid://c5t0f5mni4yid" path="res://PlayerController.gd" id="2_hn12h"]
-[ext_resource type="FontFile" uid="uid://cwgmc12w36a8a" path="res://textures/pixelHorror.ttf" id="4_ihfcg"]
+[ext_resource type="Script" uid="uid://c3t8drglp7e8u" path="res://PlayerController.gd" id="2_hn12h"]
 [ext_resource type="Script" uid="uid://c1siu43n304aa" path="res://detector.gd" id="4_rka8t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hbghi"]
@@ -497,6 +496,7 @@ texture = ExtResource("1_3hls8")
 7:2/animation_frame_1/duration = 0.3
 7:2/animation_frame_2/duration = 0.3
 7:2/0 = 0
+7:2/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:2/0 = 0
 6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 5:2/0 = 0
@@ -644,11 +644,14 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_hbghi")
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2
+physics_layer_2/collision_layer = 4
+physics_layer_2/collision_mask = 4
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 terrain_set_0/terrain_1/name = "trees"
 terrain_set_0/terrain_1/color = Color(0, 1, 0, 1)
+terrain_set_1/mode = 0
 sources/0 = SubResource("TileSetAtlasSource_3hls8")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbghi"]
@@ -1022,15 +1025,15 @@ size = Vector2(19, 21.5625)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwi2s"]
 size = Vector2(14, 22)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gace8"]
+size = Vector2(28, 30)
+
 [sub_resource type="Environment" id="Environment_7cqwe"]
 background_mode = 3
+tonemap_mode = 4
 tonemap_exposure = 0.46
 volumetric_fog_density = 0.6495
 volumetric_fog_emission_energy = 0.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_7cqwe"]
-font = ExtResource("4_ihfcg")
-font_color = Color(1, 0, 0, 1)
 
 [node name="Level1" type="Node2D" unique_id=783443556]
 
@@ -1048,15 +1051,12 @@ sprite_frames = SubResource("SpriteFrames_7cqwe")
 animation = &"StopRun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1914748549]
+visible = false
 position = Vector2(-3, 5.21875)
 shape = SubResource("RectangleShape2D_7cqwe")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=985500158]
-position = Vector2(3, 18)
-scale = Vector2(3.95126, -0.50961125)
-zoom = Vector2(3, 3)
-
 [node name="Area2D" type="Area2D" parent="CharacterBody2D" unique_id=828333960]
+visible = false
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("4_rka8t")
@@ -1065,16 +1065,23 @@ script = ExtResource("4_rka8t")
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_fwi2s")
 
+[node name="Finisher" type="Area2D" parent="CharacterBody2D" unique_id=226557849]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Finisher" unique_id=1913852264]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_gace8")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=985500158]
+position = Vector2(3, 18)
+scale = Vector2(3.95126, -0.50961125)
+zoom = Vector2(3, 3)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=400557634]
 environment = SubResource("Environment_7cqwe")
 
-[node name="Label" type="Label" parent="." unique_id=1251533787]
-offset_left = -151.0
-offset_top = -100.0
-offset_right = 131.0
-offset_bottom = -77.0
-text = "did  you  want  death"
-label_settings = SubResource("LabelSettings_7cqwe")
-
+[connection signal="Death" from="CharacterBody2D" to="CharacterBody2D/Camera2D" method="_on_character_body_2d_death"]
 [connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="CharacterBody2D/Finisher" to="CharacterBody2D" method="Finish"]

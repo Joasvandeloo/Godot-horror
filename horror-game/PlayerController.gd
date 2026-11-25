@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
 #defines all the variables
+signal Death
 const SPEED = 250.0
 const JUMP_VELOCITY = -300.0
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var area2D: Area2D = $Area2D
 
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+		
 	# Handle jump.
 	if Input.is_action_pressed("JUMP") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -45,3 +47,7 @@ func _physics_process(delta: float) -> void:
 #detects collisions
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("Death")
+	Death.emit()
+	
+func Finish(body: Node2D) -> void:
+	print("Finish")
